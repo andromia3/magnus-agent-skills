@@ -80,6 +80,19 @@ class TestSemverCheckValidation(unittest.TestCase):
         self.assertEqual(rc, 1)
         self.assertIn("invalid", out)
 
+    def test_non_ascii_digits_invalid(self):
+        """Strict SemVer permits ASCII digits only, in every component."""
+        versions = [
+            "1\u0662.2.3", "1.2\u0662.3", "1.2.3\u0662",
+            "1.2.3-1\u0662", "1.2.3-\u0662x",
+        ]
+        for version in versions:
+            with self.subTest(version=version):
+                rc, out, err = run_semver(["--check", version, "--json"])
+                self.assertEqual(rc, 1)
+                self.assertFalse(json.loads(out)["valid"])
+                self.assertNotIn("Traceback", err)
+
     def test_leading_zero_prerelease_invalid(self):
         """Numeric pre-release identifiers must not have leading zeros."""
         rc, _, _ = run_semver(["--check", "1.2.3-alpha.01"])
