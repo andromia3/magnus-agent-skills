@@ -29,13 +29,13 @@ import sys
 # Strict SemVer 2.0.0 grammar (semver.org): no leading zeros, optional
 # pre-release and build metadata.
 SEMVER_RE = re.compile(
-    r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
-    r"(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)"
-    r"(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?"
+    r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)"
+    r"(?:-((?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)"
+    r"(?:\.(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?"
     r"(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
 )
 
-NUMERIC_RE = re.compile(r"^\d+$")
+NUMERIC_RE = re.compile(r"^[0-9]+$")
 BUILD_IDENT_RE = re.compile(r"^[0-9a-zA-Z-]+$")
 
 
